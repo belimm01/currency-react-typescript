@@ -3,15 +3,11 @@
   margin-right: auto;
 }
 
-table {
-  width: 100%;
-}
-
 th {
   height: 70px;
 }
 
-thead{
+thead {
   color: aliceblue;
   background: rgb(10, 20, 110);
 }
@@ -19,11 +15,25 @@ thead{
 thead th:first-child {
   border-radius: 100px 0 0 100px;
 }
+
 thead th:last-child {
   border-radius: 0 100px 100px 0;
 }
 
-tbody td{
+tbody td {
   padding: 2rem;
   border-bottom: 1px solid rgba(206, 193, 193, 0.5);
+}
+
+.tableWrapper {
+  position: relative;
+}
+
+.tableScroll {
+  height: 600px;
+  overflow: auto;
+}
+
+.tableWrapper table {
+  width: 100%;
 }

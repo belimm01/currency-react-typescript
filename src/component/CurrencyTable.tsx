@@ -10,24 +10,28 @@ export default function CurrencyTable() {
     );
 
     return (
-        <table cellSpacing="0" cellPadding="0" className={styles.center} style={{paddingTop: '2rem'}}
-               id="currency-table">
-            <thead>
-            <tr className={styles.tableHeader}>
-                <th>Country</th>
-                <th>Currency</th>
-                <th>Amount</th>
-            </tr>
-            </thead>
-            <tbody>
-            {query.data?.length &&
-            query.data.map((row: any) => (
-                <tr>{row.map((data: any) => (
-                    <td>{data}</td>
-                ))}
-                </tr>
-            ))}
-            </tbody>
-        </table>
+        <div className={styles.tableWrapper}>
+            <div className={styles.tableScroll}>
+                <table cellSpacing="0" cellPadding="0" className={styles.center} style={{paddingTop: '2rem'}}
+                       id="currency-table">
+                    <thead>
+                    <tr className={styles.tableHeader}>
+                        <th>Country</th>
+                        <th>Currency</th>
+                        <th>Amount</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    {query.data?.length &&
+                    query.data.map((row: any) => (
+                        <tr>{row.map((data: any) => (
+                            <td>{data}</td>
+                        ))}
+                        </tr>
+                    ))}
+                    </tbody>
+                </table>
+            </div>
+        </div>
     );
 };
