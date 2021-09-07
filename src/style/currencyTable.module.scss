@@ -1,0 +1,29 @@
+.center {
+  margin-left: auto;
+  margin-right: auto;
+}
+
+table {
+  width: 100%;
+}
+
+th {
+  height: 70px;
+}
+
+thead{
+  color: aliceblue;
+  background: rgb(10, 20, 110);
+}
+
+thead th:first-child {
+  border-radius: 100px 0 0 100px;
+}
+thead th:last-child {
+  border-radius: 0 100px 100px 0;
+}
+
+tbody td{
+  padding: 2rem;
+  border-bottom: 1px solid rgba(206, 193, 193, 0.5);
+}

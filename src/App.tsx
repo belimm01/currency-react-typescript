@@ -1,26 +1,21 @@
 import React from 'react';
-import logo from './logo.svg';
 import './App.css';
+import CurrencyTable from "./component/CurrencyTable";
+import CurrencyForm from "./component/CurrencyForm";
+import {QueryClient, QueryClientProvider} from "react-query";
+
+const queryClient = new QueryClient()
 
 function App() {
-  return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.tsx</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
-  );
+    return (
+        <div className="App">
+            <h1>CZK Live Exchange Rates</h1>
+            <CurrencyForm/>
+            <QueryClientProvider client={queryClient}>
+                <CurrencyTable/>
+            </QueryClientProvider>
+        </div>
+    );
 }
 
 export default App;
