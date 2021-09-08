@@ -1,13 +1,22 @@
-import React from 'react';
+import React, {useContext, useEffect} from 'react';
 import styles from "../style/currencyTable.module.scss"
+import CurrencyRateContext from "../context/currencyRateContext";
 import {useQuery} from "react-query";
 import {getRates} from "../api/currencyApi";
 import {processCurrency} from "../service/currencyService";
 
 export default function CurrencyTable() {
-    const query = useQuery('rates', () =>
+    const {currencyRates, saveCurrencyRates} = useContext(CurrencyRateContext) as ContextType;
+
+    const query = useQuery('currencyRates', () =>
         getRates().then((res) => processCurrency(res.data))
     );
+
+    useEffect(() => {
+        if (query?.data?.length) {
+            saveCurrencyRates(query.data as ICurrencyRate[]);
+        }
+    }, [query.data])
 
     return (
         <div className={styles.tableWrapper}>
@@ -22,13 +31,12 @@ export default function CurrencyTable() {
                     </tr>
                     </thead>
                     <tbody>
-                    {query.data?.length &&
-                    query.data.map((row: any) => (
-                        <tr>{row.map((data: any) => (
-                            <td>{data}</td>
-                        ))}
-                        </tr>
-                    ))}
+                    {currencyRates.map(currencyRate => (
+                        <tr key={currencyRate.id}>
+                            <td>{currencyRate.country}</td>
+                            <td>{currencyRate.currency}</td>
+                            <td>{currencyRate.rate}</td>
+                        </tr>))}
                     </tbody>
                 </table>
             </div>
