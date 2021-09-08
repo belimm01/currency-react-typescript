@@ -1,7 +1,40 @@
 import React, {useContext, useEffect, useState} from 'react';
 import {useForm} from "react-hook-form";
-import styles from "../style/currencyForm.module.scss"
 import CurrencyRateContext from "../context/currencyRateContext";
+import styled, {css} from "styled-components";
+
+const InputWrapper = styled.div`flex: 1; text-align: left; padding: 1rem;`;
+const FormWrapper = styled.div`display: flex; align-items: flex-end;`;
+const ResultWrapper = styled.div`display: flex; text-align: left; padding-left: 1rem; font-weight: bold;`;
+
+const FormBackground = styled.div`
+  border-radius: 8px;
+  background-color: rgb(255, 255, 255);
+  box-shadow: rgb(35 55 80 / 30%) 0px 6px 12px;
+  padding: 10px;`;
+
+const styledInput = css`
+  width: 100%;
+  padding: 12px 20px;
+  margin: 8px 0;
+  display: inline-block;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  box-sizing: border-box;`;
+
+const Submit = styled.input` 
+  width: 100%;
+  background-color: #4CAF50;
+  color: white;
+  padding: 14px 20px;
+  margin: 8px 0;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;`;
+
+const Input = styled.input`${styledInput}`;
+const Select = styled.select` ${styledInput}`;
+
 
 export default function CurrencyForm() {
     const {handleSubmit} = useForm();
@@ -49,17 +82,21 @@ export default function CurrencyForm() {
     }
 
     return (
-        <div className={styles.formBackground}>
+        <FormBackground>
             <form onSubmit={handleSubmit(onSubmit)}>
-                <div style={{display: 'flex', alignItems: 'flex-end'}}>
-                    <div style={{flex: '1', textAlign: 'left'}}>
+                <FormWrapper>
+                    <InputWrapper>
                         <label htmlFor="amount">Amount</label>
-                        <input onChange={handleAmountChange} type="number" defaultValue={1} id="amount" name="amount"
+                        <Input onChange={handleAmountChange}
+                               type="number"
+                               min="0"
+                               value={currentAmount}
+                               id="amount" name="amount"
                                placeholder="Type amount"/>
-                    </div>
-                    <div style={{flex: '1', textAlign: 'left'}}>
+                    </InputWrapper>
+                    <InputWrapper>
                         <label htmlFor="currency">Currency</label>
-                        <select id="currency" name="currency" onChange={handleOptionChange}
+                        <Select id="currency" name="currency" onChange={handleOptionChange}
                                 value={currentCurrencyOption}>
                             {currencyOptions?.length && currencyOptions.map((currencyOption: ICurrencyOption) => (
                                 <option key={currencyOption.id}
@@ -67,19 +104,14 @@ export default function CurrencyForm() {
                                     {currencyOption.value}
                                 </option>
                             ))}
-                        </select>
-                    </div>
-                    <div style={{flex: '1'}}>
-                        <input type="submit" value="Convert"/>
-                    </div>
-                </div>
+                        </Select>
+                    </InputWrapper>
+                    <InputWrapper>
+                        <Submit type="submit" value="Convert"/>
+                    </InputWrapper>
+                </FormWrapper>
             </form>
-            <div style={{
-                display: 'flex',
-                textAlign: 'left',
-                paddingLeft: '1rem',
-                fontWeight: 'bold'
-            }}>{convertResult}</div>
-        </div>
+            <ResultWrapper>{convertResult}</ResultWrapper>
+        </FormBackground>
     );
 };
