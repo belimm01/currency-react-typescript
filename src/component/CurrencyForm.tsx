@@ -1,7 +1,7 @@
-import React, {useContext, useEffect, useState} from 'react';
-import {useForm} from "react-hook-form";
-import CurrencyRateContext from "../context/currencyRateContext";
-import styled, {css} from "styled-components";
+import { useContext, useEffect, useState, type ChangeEvent } from 'react';
+import { useForm } from 'react-hook-form';
+import CurrencyRateContext from '../context/currencyRateContext';
+import styled, { css } from 'styled-components';
 
 const InputWrapper = styled.div`flex: 1; text-align: left; padding: 1rem;`;
 const FormWrapper = styled.div`display: flex; align-items: flex-end;`;
@@ -56,8 +56,9 @@ export default function CurrencyForm() {
 
     useEffect(() => {
         if (currentCurrencyOption) {
-            setCurrentCurrencyRate(currencyRates.filter(currencyRate => currencyRate.id === currentCurrencyOption)[0]);
+            setCurrentCurrencyRate(currencyRates.find(currencyRate => currencyRate.id === currentCurrencyOption));
         }
+        // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [currentCurrencyOption])
 
     useEffect(() => {
@@ -73,11 +74,11 @@ export default function CurrencyForm() {
         }
     };
 
-    const handleOptionChange = (event: any) => {
+    const handleOptionChange = (event: ChangeEvent<HTMLSelectElement>) => {
         setCurrentCurrencyOption(parseInt(event.target.value));
     }
 
-    const handleAmountChange = (event: any) => {
+    const handleAmountChange = (event: ChangeEvent<HTMLInputElement>) => {
         setCurrentAmount(parseInt(event.target.value));
     }
 

@@ -1,20 +1,19 @@
-import * as React from "react";
-import {useState} from "react";
+import { createContext, useState, type PropsWithChildren } from 'react';
 
-const CurrencyRateContext = React.createContext<ContextType | null>(null);
+const CurrencyRateContext = createContext<ContextType | null>(null);
 
-export const CurrencyRateProvider: React.FC = ({children}) => {
-    const [currencyRates, setCurrencyRates] = useState<ICurrencyRate[]>([]);
+export const CurrencyRateProvider = ({ children }: PropsWithChildren) => {
+  const [currencyRates, setCurrencyRates] = useState<ICurrencyRate[]>([]);
 
-    const saveCurrencyRates = (currencyRates: ICurrencyRate[]) => {
-        setCurrencyRates(currencyRates);
-    };
+  const saveCurrencyRates = (rates: ICurrencyRate[]) => {
+    setCurrencyRates(rates);
+  };
 
-    return (
-        <CurrencyRateContext.Provider value={{currencyRates, saveCurrencyRates}}>
-            {children}
-        </CurrencyRateContext.Provider>
-    );
-}
+  return (
+    <CurrencyRateContext.Provider value={{ currencyRates, saveCurrencyRates }}>
+      {children}
+    </CurrencyRateContext.Provider>
+  );
+};
 
 export default CurrencyRateContext;
